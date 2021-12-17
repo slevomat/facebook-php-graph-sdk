@@ -96,6 +96,19 @@ class FacebookApp implements \Serializable
         return implode('|', [$this->id, $this->secret]);
     }
 
+	/**
+	 * Serializes the FacebookApp entity.
+	 *
+	 * @return mixed[]
+	 */
+    public function __serialize()
+    {
+		return [
+			$this->id,
+			$this->secret,
+		];
+    }
+
     /**
      * Unserializes a string as a FacebookApp entity.
      *
@@ -107,4 +120,18 @@ class FacebookApp implements \Serializable
 
         $this->__construct($id, $secret);
     }
+
+	/**
+	 * Unserializes array data as a FacebookApp entity.
+	 *
+	 * @param mixed[] $serialized
+	 */
+    public function __unserialize(array $serialized)
+    {
+		[$id, $secret] = $serialized;
+
+		$this->id = $id;
+		$this->secret = $secret;
+    }
+
 }
